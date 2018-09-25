@@ -1,4 +1,4 @@
-const Calculator = require('./calculator.js')
+const Calculator = require('./calculator.js').default
 
 // See http://en.wikipedia.org/wiki/Reverse_Polish_notation
 

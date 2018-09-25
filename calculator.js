@@ -44,3 +44,11 @@ class Calculator {
   }
 }
 module.exports = Calculator;
+
+myCalc = new Calculator()
+myCalc.enter(2);
+myCalc.enter(5);
+myCalc.plus();
+myCalc.enter(7);
+myCalc.divide();
+console.log(myCalc.value());
