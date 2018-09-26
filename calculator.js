@@ -1,3 +1,16 @@
+const readline = require('readline');
+
+const readlineInterface = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+function ask(questionText) {
+  return new Promise((resolve, reject) => {
+    readlineInterface.question(questionText, resolve);
+  });
+};
+
 class Calculator {
   constructor() {
     this.stack = [];
@@ -46,9 +59,69 @@ class Calculator {
 module.exports = Calculator;
 
 myCalc = new Calculator()
-myCalc.enter(2);
-myCalc.enter(5);
-myCalc.plus();
-myCalc.enter(7);
-myCalc.divide();
-console.log(myCalc.value());
+
+async function userInput(){
+  let userIn = await ask('Enter a number or operator.')
+  if (userIn.isNan == false) {
+    myCalc.enter(parseInt(userIn))
+    let cont = await ask('add more numbers or operators Y/N?')
+    if (cont.toLowerCase() === 'y') {
+      userInput();
+    }
+    else if (cont.toLowerCase() === 'n') {
+      console.log('The result is: ' + myCalc.value());
+      process.exit()
+    }
+  }
+  else if (userIn === '+') {
+    myCalc.plus();
+    cont;
+    if (cont.toLowerCase() === 'y') {
+      userInput();
+    }
+    else if (cont.toLowerCase() === 'n') {
+      console.log('The result is: ' + myCalc.value());
+      process.exit()
+    }
+  }
+  else if (userIn === '-') {
+    myCalc.minus();
+    cont;
+    if (cont.toLowerCase() === 'y') {
+      userInput();
+    }
+    else if (cont.toLowerCase() === 'n') {
+      console.log('The result is: ' + myCalc.value());
+      process.exit()
+    }
+  }
+  else if (userIn === '/') {
+    myCalc.divide();
+    cont;
+    if (cont.toLowerCase() === 'y') {
+      userInput();
+    }
+    else if (cont.toLowerCase() === 'n') {
+      console.log('The result is: ' + myCalc.value());
+      process.exit()
+    }
+  }
+  else if (userIn === '*') {
+    myCalc.times();
+    cont;
+  }
+  else {
+    console.log('invalid input');
+    userInput();
+    cont;
+    if (cont.toLowerCase() === 'y') {
+      userInput();
+    }
+    else if (cont.toLowerCase() === 'n') {
+      console.log('The result is: ' + myCalc.value());
+      process.exit()
+    }
+  }
+};
+
+userInput();
